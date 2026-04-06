@@ -94,12 +94,19 @@ email-env/
 
 ## Quick Start
 
+### ⚡ Recommended (Groq - Fast & Free)
 ```bash
-pip install -r requirements.txt
+export API_BASE_URL="https://api.groq.com/openai/v1"
+export MODEL_NAME="llama-3.1-8b-instant"
+export HF_TOKEN="gsk_..."   # Your Groq API Key
+python inference.py
+```
 
-export API_BASE_URL="https://api.openai.com/v1"
-export MODEL_NAME="gpt-4o-mini"
-export HF_TOKEN="sk-..."
+### 🌍 Alternative (OpenAI / Hugging Face Router)
+```bash
+export API_BASE_URL="https://router.huggingface.co/v1"
+export MODEL_NAME="meta-llama/Llama-3.2-1B-Instruct"
+export HF_TOKEN="hf_..."
 python inference.py
 ```
 
