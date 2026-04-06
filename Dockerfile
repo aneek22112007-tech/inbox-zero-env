@@ -35,8 +35,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # ── Application code ─────────────────────────────────────────
 COPY --chown=user:user env/          ./env/
 COPY --chown=user:user data/         ./data/
+COPY --chown=user:user server/       ./server/
 COPY --chown=user:user inference.py  ./inference.py
-COPY --chown=user:user app.py        ./app.py
 COPY --chown=user:user openenv.yaml  ./openenv.yaml
 
 # ── Ensure the package is importable ────────────────────────
@@ -52,4 +52,5 @@ ENV HF_TOKEN=""
 RUN python -c "from env import InboxZeroEnv; env = InboxZeroEnv('easy'); print('✓ InboxZeroEnv import OK')"
 
 # ── Default command ──────────────────────────────────────────
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
+# Set PYTHONPATH to include current dir for 'env' imports from 'server/'
+CMD ["sh", "-c", "PYTHONPATH=. uvicorn server.app:app --host 0.0.0.0 --port 7860"]
