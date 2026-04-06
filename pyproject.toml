@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "inbox-zero-env"
+version = "3.0.0"
+description = "A production-grade, OpenEnv-compliant RL environment for email triage."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "InboxZeroEnv Contributors"},
+]
+keywords = [
+    "openenv",
+    "rl",
+    "email-triage",
+    "llm-evaluation",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "pydantic>=2.0,<3.0",
+    "openai>=1.0.0",
+    "pyyaml>=6.0,<7.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/aneek22112007-tech/inbox-zero-env"
+Issues = "https://github.com/aneek22112007-tech/inbox-zero-env/issues"
+
+[tool.setuptools]
+packages = ["env"]
