@@ -7,7 +7,7 @@ name = "inbox-zero-env"
 version = "3.0.0"
 description = "A production-grade, OpenEnv-compliant RL environment for email triage."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
     {name = "InboxZeroEnv Contributors"},
@@ -30,7 +30,11 @@ dependencies = [
     "pyyaml>=6.0,<7.0",
     "fastapi>=0.100.0",
     "uvicorn>=0.20.0",
+    "openenv-core>=0.2.0",
 ]
+
+[project.scripts]
+inbox-zero-env = "app:app"
 
 [project.urls]
 Homepage = "https://github.com/aneek22112007-tech/inbox-zero-env"
