@@ -245,9 +245,9 @@ def run_task(
 ) -> Dict[str, Any]:
     """Run the agent through a single task and return a result dict."""
     print(f"[START] task={task_name}", flush=True)
-    print(f"{'=' * 60}")
-    print(f"  Task: {task_name.upper()}")
-    print(f"{'=' * 60}")
+    print(f"{'=' * 60}", flush=True)
+    print(f"  Task: {task_name.upper()}", flush=True)
+    print(f"{'=' * 60}", flush=True)
 
     env = InboxZeroEnv(task_name=task_name)
     obs = env.reset()
@@ -275,10 +275,10 @@ def run_task(
         # v3: Validate and retry if needed
         action = validate_and_maybe_retry(client, model, obs, action)
 
-        print(f"    → action: {action.action_type}", end="")
+        print(f"    → action: {action.action_type}", end="", flush=True)
         if action.response:
-            print(f" | reply ({len(action.response)} chars)", end="")
-        print()
+            print(f" | reply ({len(action.response)} chars)", end="", flush=True)
+        print(flush=True)
 
         obs, reward, done, info = env.step(action)
 
@@ -287,8 +287,8 @@ def run_task(
             tags = [f"[{k}:{v:+.2f}]" for k, v in info["penalty_breakdown"].items()]
             penalty_note = "  " + " ".join(tags)
 
-        print(f"[STEP] step={info['step_count']} reward={reward.score}", flush=True)
-        print(f"    ✓ score: {reward.score:.4f} | {reward.reason[:75]}{penalty_note}")
+        print(f"[STEP] step={info['step_count'] + 1} reward={reward.score}", flush=True)
+        print(f"    ✓ score: {reward.score:.4f} | {reward.reason[:75]}{penalty_note}", flush=True)
 
         # Update per-category stats
         cat = info["email_category"]
@@ -372,15 +372,15 @@ def main() -> None:
 
     if not token:
         print(
-            "ERROR: Set HF_TOKEN or OPENAI_API_KEY environment variable.",
+            "WARNING: No HF_TOKEN or OPENAI_API_KEY provided. Using dummy token.",
             file=sys.stderr,
         )
-        sys.exit(1)
+        token = "dummy_token"
 
-    print(f"InboxZeroEnv Inference  (v3 — CoT + few-shot)")
-    print(f"  API base : {api_base}")
-    print(f"  Model    : {model}")
-    print(f"  Token    : {'*' * (len(token) - 4) + token[-4:]}")
+    print(f"InboxZeroEnv Inference  (v3 — CoT + few-shot)", flush=True)
+    print(f"  API base : {api_base}", flush=True)
+    print(f"  Model    : {model}", flush=True)
+    print(f"  Token    : {'*' * (len(token) - 4) + token[-4:]}", flush=True)
 
     client = OpenAI(api_key=token, base_url=api_base)
 
